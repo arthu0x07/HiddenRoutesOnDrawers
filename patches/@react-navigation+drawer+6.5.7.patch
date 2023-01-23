@@ -1,0 +1,29 @@
+diff --git a/node_modules/@react-navigation/drawer/src/views/DrawerItemList.tsx b/node_modules/@react-navigation/drawer/src/views/DrawerItemList.tsx
+index 76f0125..953ee8e 100644
+--- a/node_modules/@react-navigation/drawer/src/views/DrawerItemList.tsx
++++ b/node_modules/@react-navigation/drawer/src/views/DrawerItemList.tsx
+@@ -14,6 +14,7 @@ type Props = {
+   state: DrawerNavigationState<ParamListBase>;
+   navigation: DrawerNavigationHelpers;
+   descriptors: DrawerDescriptorMap;
++  HideRoutes?: string[]
+ };
+ 
+ /**
+@@ -23,6 +24,7 @@ export default function DrawerItemList({
+   state,
+   navigation,
+   descriptors,
++  HideRoutes
+ }: Props) {
+   const buildLink = useLinkBuilder();
+ 
+@@ -38,6 +40,8 @@ export default function DrawerItemList({
+   } = focusedOptions;
+ 
+   return state.routes.map((route, i) => {
++    if(HideRoutes?.includes(route.name)) return null;
++
+     const focused = i === state.index;
+ 
+     const onPress = () => {
